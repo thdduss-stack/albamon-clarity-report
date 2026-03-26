@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ìë¥ì´ë²¤í¸ Clarity ë¶ì ë¦¬í¬í¸</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #0a0a0f;
+    color: #e8e8ed;
+    line-height: 1.7;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 80px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(255,107,53,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(59,130,246,0.08) 0%, transparent 50%);
+  }
+  .hero h1 {
+    font-size: 42px;
+    font-weight: 900;
+    color: #fff;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .hero .subtitle {
+    font-size: 16px;
+    color: #8892b0;
+    position: relative;
+  }
+  .hero .meta {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    position: relative;
+  }
+  .hero .meta span {
+    font-size: 13px;
+    color: #5a6a8a;
+    background: rgba(255,255,255,0.05);
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
+
+  /* Container */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* Section */
+  .section {
+    padding: 64px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #ff6b35;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 32px;
+  }
+
+  /* Metric Cards */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .metric-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+  }
+  .metric-card .value {
+    font-size: 40px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #ff6b35, #ff9f1c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .metric-card .label {
+    font-size: 13px;
+    color: #6b7b9a;
+    margin-top: 4px;
+  }
+  .metric-card.danger .value {
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .metric-card.success .value {
+    background: linear-gradient(135deg, #22c55e, #10b981);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Insight Block */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .insight-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .insight-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+  }
+  .insight-card.critical::before { background: linear-gradient(180deg, #ef4444, #f97316); }
+  .insight-card.warning::before { background: linear-gradient(180deg, #f59e0b, #eab308); }
+  .insight-card.info::before { background: linear-gradient(180deg, #3b82f6, #6366f1); }
+  .insight-card.positive::before { background: linear-gradient(180deg, #22c55e, #10b981); }
+
+  .insight-card .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  .critical .tag { background: rgba(239,68,68,0.15); color: #ef4444; }
+  .warning .tag { background: rgba(245,158,11,0.15); color: #f59e0b; }
+  .info .tag { background: rgba(59,130,246,0.15); color: #3b82f6; }
+  .positive .tag { background: rgba(34,197,94,0.15); color: #22c55e; }
+
+  .insight-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  .insight-card p {
+    font-size: 14px;
+    color: #8892b0;
+    line-height: 1.8;
+  }
+  .insight-card .data-point {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    font-size: 13px;
+    color: #a8b2d1;
+  }
+  .insight-card .data-point strong {
+    color: #fff;
+  }
+
+  /* Table */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+  }
+  .data-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #5a6a8a;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .data-table td {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #c8d0e0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .badge.red { background: rgba(239,68,68,0.15); color: #ef4444; }
+  .badge.yellow { background: rgba(245,158,11,0.15); color: #f59e0b; }
+  .badge.green { background: rgba(34,197,94,0.15); color: #22c55e; }
+
+  /* Bar chart */
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .bar-label {
+    width: 180px;
+    font-size: 13px;
+    color: #8892b0;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1;
+    height: 28px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  /* Action Items */
+  .action-list {
+    list-style: none;
+    margin-top: 24px;
+  }
+  .action-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .action-number {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #ff6b35, #ff9f1c);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .action-content h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .action-content p {
+    font-size: 14px;
+    color: #8892b0;
+    line-height: 1.7;
+  }
+  .action-content .impact {
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff6b35;
+  }
+
+  /* Full width card */
+  .full-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 32px;
+    margin-top: 24px;
+  }
+  .full-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 40px 0;
+    text-align: center;
+    color: #3a4a6a;
+    font-size: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .insight-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 28px; }
+    .hero .meta { flex-direction: column; align-items: center; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>ìë°ëª¬ ìë¥ì´ë²¤í¸ UX ë¶ì</h1>
+  <p class="subtitle">Microsoft Clarity ê¸°ë° ì¬ì©ì íë ë¶ì & ëìì¸ ì¸ì¬ì´í¸ ë¦¬í¬í¸</p>
+  <div class="meta">
+    <span>ë¶ì ê¸°ê°: ìµê·¼ 30ì¼</span>
+    <span>ëì URL: m.albamon.com/events/2025csat-promotion</span>
+    <span>ë¶ìì¼: 2026.03.26</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- 1. íµì¬ ì§í ê°ì -->
+  <div class="section">
+    <div class="section-label">Overview</div>
+    <div class="section-title">íµì¬ ì§í íëì ë³´ê¸°</div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="value">22</div>
+        <div class="label">ì´ ì¸ì ì</div>
+      </div>
+      <div class="metric-card">
+        <div class="value">2.14</div>
+        <div class="label">ì¸ìë¹ íì´ì§ ì</div>
+      </div>
+      <div class="metric-card success">
+        <div class="value">82.6%</div>
+        <div class="label">íê·  ì¤í¬ë¡¤ ê¹ì´</div>
+      </div>
+      <div class="metric-card danger">
+        <div class="value">11ì´</div>
+        <div class="label">íê·  íì± ìê°</div>
+      </div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="value">17</div>
+        <div class="label">ê³ ì  ì¬ì©ì</div>
+      </div>
+      <div class="metric-card">
+        <div class="value">86.4%</div>
+        <div class="label">ì ê· ì¬ì©ì ë¹ì¨</div>
+      </div>
+      <div class="metric-card danger">
+        <div class="value">9.09%</div>
+        <div class="label">ë¹ ë¥¸ ë¤ë¡ ê°ê¸°</div>
+      </div>
+      <div class="metric-card danger">
+        <div class="value">35/100</div>
+        <div class="label">ì±ë¥ ì ì</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. ì¬ì©ì íë ë¶ì -->
+  <div class="section">
+    <div class="section-label">Behavior Analysis</div>
+    <div class="section-title">ì¬ì©ì íë í¨í´ ë¶ì</div>
+
+    <div class="insight-grid">
+      <div class="insight-card critical">
+        <span class="tag">Critical</span>
+        <h3>"ë³´ê³ ë ìì§ë§, ë°ìíì§ ìëë¤"</h3>
+        <p>íê·  íì± ìê°ì´ 11ì´(ì´ ì²´ë¥ 50ì´ ì¤)ë¡, ì¬ì©ìë¤ì´ íì´ì§ë¥¼ ì´ì´ëë <strong>ì ê·¹ì ì¼ë¡ ì¸í°ëìíì§ ìê³  ììµëë¤.</strong> ì¤í¬ë¡¤ ê¹ì´ë 82.6%ë¡ ëì§ë§, í´ë¦­ì¼ë¡ ì´ì´ì§ë íë ì íì´ ê±°ì ììµëë¤.</p>
+        <div class="data-point">
+          <strong>Rage Click 0%</strong> Â· <strong>Dead Click 0%</strong> Â· <strong>Excessive Scroll 0%</strong><br>
+          â UI ë¶ë§ì ìëì§ë§, íëì ì ëíë CTAê° ì½í¨ì ìë¯¸
+        </div>
+      </div>
+
+      <div class="insight-card warning">
+        <span class="tag">Warning</span>
+        <h3>ë¹ ë¥¸ ì´í í¨í´ (Quick Back 9.09%)</h3>
+        <p>22ê° ì¸ì ì¤ 2ê° ì¸ììì ì¬ì©ìê° íì´ì§ì ì§ìí ë¤ ê³§ë°ë¡ ë¤ë¡ ê°ê¸°ë¥¼ ëë ìµëë¤. ì´ë²¤í¸ íì´ì§ê° ì¬ì©ìì <strong>ê¸°ëì ë¤ë¥¸ ì½íì¸°</strong>ë¥¼ ë³´ì¬ì£¼ê±°ë, ì²«ì¸ì(íì´ë¡ ìì­)ìì í¥ë¯¸ë¥¼ ëì§ ëª»íì ê°ë¥ì±ì´ ììµëë¤.</p>
+        <div class="data-point">
+          <strong>2 ì¸ì</strong>ì´ ì§ì ì§í ì´í â íì´ë¡/ìë¨ CTA ìì­ ê°ì  íì
+        </div>
+      </div>
+
+      <div class="insight-card positive">
+        <span class="tag">Positive</span>
+        <h3>ì¤í¬ë¡¤ ì°¸ì¬ëë ë§¤ì° ëì</h3>
+        <p>íí¸ë§µ ë¶ì ê²°ê³¼, ìë¥ì´ë²¤í¸ íì´ì§ì ì ìí 9ëªì ë°©ë¬¸ì ì ì(100%)ì´ íì´ì§ íë¨ê¹ì§ ìì í ì¤í¬ë¡¤íìµëë¤. <strong>ì½íì¸ ì ëí ê´ì¬ë ìì²´ë ëë¤</strong>ë ê¸ì ì  ì í¸ìëë¤.</p>
+        <div class="data-point">
+          <strong>5%~100% êµ¬ê° ëª¨ë 9ëª(100%)</strong>ì´ ëë¬ â ì½íì¸  ê¸¸ì´ ì ì , ëë¡­ì¤í ìì
+        </div>
+      </div>
+
+      <div class="insight-card info">
+        <span class="tag">Insight</span>
+        <h3>íµì¬ ì í ê²½ë¡: ì´ë²¤í¸ â ë©ì¸ â ì±ì©ì ë³´</h3>
+        <p>ê°ì¥ íë°í ì¸ì(01:21, 7í´ë¦­, 11íì´ì§)ìì ì¬ì©ìë ì´ë²¤í¸ íì´ì§ â ìë°ëª¬ ë©ì¸ â ì§ì­ë³ ì±ì©ì ë³´ â ê°ë³ ì±ì©ê³µê³  ìì¼ë¡ íìíìµëë¤. ì´ë²¤í¸ê° <strong>ì±ì©ì ë³´ íìì ì§ìì </strong> ì­í ì íê³  ììµëë¤.</p>
+        <div class="data-point">
+          <strong>ìì íì´ì§:</strong> ìë¥ì´ë²¤í¸(16) â ìë°ëª¬ ë©ì¸(12) â ì§ì­ë³ ìë°(6) â ê°ë³ ê³µê³ (1ì©)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ê¸°ê¸° & í¸ëí½ ë¶ì -->
+  <div class="section">
+    <div class="section-label">Device & Traffic</div>
+    <div class="section-title">ì ì íê²½ & ì ì ê²½ë¡</div>
+
+    <div class="insight-grid">
+      <div class="full-card" style="grid-column: 1;">
+        <h3>ë¸ë¼ì°ì  ë¶í¬</h3>
+        <div style="margin-top: 16px;">
+          <div class="bar-row">
+            <div class="bar-label">MobileSafari</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 36.36%; background: linear-gradient(90deg, #3b82f6, #6366f1);">36.4%</div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">ChromeMobile</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 27.27%; background: linear-gradient(90deg, #22c55e, #10b981);">27.3%</div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Safari</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 18.18%; background: linear-gradient(90deg, #f59e0b, #eab308);">18.2%</div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">SamsungInternet</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 9.09%; background: linear-gradient(90deg, #ef4444, #f97316);">9.1%</div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Chrome (PC)</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 9.09%; background: linear-gradient(90deg, #8b5cf6, #a855f7);">9.1%</div>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 16px; font-size: 13px; color: #8892b0;">
+          â <strong style="color:#fff;">90% ì´ìì´ ëª¨ë°ì¼</strong> ì ì. iOS(Safari ê³ì´ 54.5%) ë¹ì¤ì´ Androidë³´ë¤ ëì. ëª¨ë°ì¼ í¼ì¤í¸ ìµì íê° íì.
+        </p>
+      </div>
+
+      <div class="full-card" style="grid-column: 2;">
+        <h3>ì ì ê²½ë¡ (ì°¸ì¡° íì´ì§)</h3>
+        <div style="margin-top: 16px;">
+          <div class="bar-row">
+            <div class="bar-label">m.albamon.com</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 94.7%; background: linear-gradient(90deg, #ff6b35, #ff9f1c);">18ê±´</div>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">blog.naver.com</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 5.3%; background: linear-gradient(90deg, #22c55e, #10b981);">1ê±´</div>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 16px; font-size: 13px; color: #8892b0;">
+          â ëë¶ë¶ <strong style="color:#fff;">ìë°ëª¬ ë´ë¶ ì ì</strong>. ì¸ë¶ ë§ì¼í(SNS, ê²ì, ê´ê³ ) ì ìì´ ê±°ì ìì.
+          ë¤ì´ë² ë¸ë¡ê·¸ìì 1ê±´ì ì¸ë¶ ì ìë§ íì¸ë¨.
+        </p>
+
+        <div style="margin-top: 24px; padding: 16px; background: rgba(255,107,53,0.08); border-radius: 8px; border-left: 3px solid #ff6b35;">
+          <p style="font-size: 13px; color: #c8d0e0;">
+            <strong style="color: #ff6b35;">ê¹ëê¸° ì íì¨ 0%</strong> â "refer friends" ëª©í ê¸°ì¤, 22ê° ì¸ì ì¤ ì íë ì¸ìì´ 0ê°ìëë¤. ì´ë²¤í¸ ì°¸ì¬(ê³µì /ì¶ì²) ëì ì´ ëªííì§ ìê±°ë, CTAê° ì¸ì§ëì§ ìê³  ììµëë¤.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. ì±ë¥ ì´ì -->
+  <div class="section">
+    <div class="section-label">Performance</div>
+    <div class="section-title">íì´ì§ ì±ë¥ â ì¬ê°í ê°ì  íì</div>
+
+    <div class="metrics-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="metric-card danger">
+        <div class="value">6.1s</div>
+        <div class="label">LCP (ìµë ì½íì¸  ê·¸ë¦¼í)</div>
+        <div style="margin-top: 8px;"><span class="badge red">ëì¨</span></div>
+      </div>
+      <div class="metric-card" style="border-color: rgba(245,158,11,0.3);">
+        <div class="value" style="background: linear-gradient(135deg, #f59e0b, #eab308); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">490ms</div>
+        <div class="label">INP (ìí¸ ìì© ë°ì)</div>
+        <div style="margin-top: 8px;"><span class="badge yellow">ê°ì  íì</span></div>
+      </div>
+      <div class="metric-card danger">
+        <div class="value">0.4</div>
+        <div class="label">CLS (ë ì´ìì ì´ë)</div>
+        <div style="margin-top: 8px;"><span class="badge red">ëì¨</span></div>
+      </div>
+    </div>
+
+    <div class="full-card">
+      <h3>ì±ë¥ ì ì ë¶í¬</h3>
+      <div style="display: flex; align-items: center; gap: 24px; margin-top: 16px;">
+        <div style="flex: 1; height: 32px; border-radius: 8px; overflow: hidden; display: flex;">
+          <div style="width: 14.3%; background: #22c55e;"></div>
+          <div style="width: 0%; background: #f59e0b;"></div>
+          <div style="width: 85.7%; background: #ef4444;"></div>
+        </div>
+        <div style="font-size: 13px; color: #8892b0; flex-shrink: 0;">
+          <span style="color: #22c55e;">â ì¢ì 14.3%</span>&nbsp;&nbsp;
+          <span style="color: #f59e0b;">â ê°ì  0%</span>&nbsp;&nbsp;
+          <span style="color: #ef4444;">â ëì¨ 85.7%</span>
+        </div>
+      </div>
+      <p style="margin-top: 16px; font-size: 14px; color: #8892b0;">
+        7í ì¡°í ì¤ <strong style="color:#ef4444;">85.7%ê° "ëì¨"</strong> ë±ê¸ìëë¤. í¹í LCP 6.1ì´ë ëª¨ë°ì¼ íê²½ìì ì¬ì©ì ì´íì ì§ì ì  ìì¸ì´ ë©ëë¤. Googleììë LCP 2.5ì´ ì´íë¥¼ ê¶ì¥í©ëë¤. CLS 0.4ë íì´ì§ ë¡ë© ì¤ ììë¤ì´ í¬ê² ì´ëíê³  ììì ìë¯¸íë©°, ì´ë¯¸ì§/ê´ê³  ìì­ì ì¬ì  í¬ê¸° íë³´ê° íìí©ëë¤.
+      </p>
+    </div>
+  </div>
+
+  <!-- 5. ì¸ì ë¹í ì¸ì¬ì´í¸ -->
+  <div class="section">
+    <div class="section-label">Session Recordings</div>
+    <div class="section-title">ì¸ì ë¹í ì£¼ì í¨í´</div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ë ì§</th>
+          <th>ì²´ë¥ìê°</th>
+          <th>í´ë¦­</th>
+          <th>íì´ì§</th>
+          <th>ëë°ì´ì¤</th>
+          <th>ë¸ë¼ì°ì </th>
+          <th>íë í¨í´</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>3/8</td>
+          <td><strong style="color: #22c55e;">01:21</strong></td>
+          <td>7</td>
+          <td>11</td>
+          <td>ëª¨ë°ì¼</td>
+          <td>MobileSafari</td>
+          <td><span class="badge green">ì ê·¹ íì</span> ì´ë²¤í¸âì±ì©ì ë³´ ì í</td>
+        </tr>
+        <tr>
+          <td>3/8</td>
+          <td>00:16</td>
+          <td>0</td>
+          <td>2</td>
+          <td>ëª¨ë°ì¼</td>
+          <td>Unknown</td>
+          <td><span class="badge yellow">íìë§</span> í´ë¦­ ìì´ ì¤í¬ë¡¤ë§</td>
+        </tr>
+        <tr>
+          <td>3/11</td>
+          <td>00:12</td>
+          <td>1</td>
+          <td>3</td>
+          <td>PC</td>
+          <td>Chrome</td>
+          <td><span class="badge yellow">ê°ë¨ íì</span> 1ë² í´ë¦­ í ì´ë</td>
+        </tr>
+        <tr>
+          <td>3/11</td>
+          <td>00:09</td>
+          <td>1</td>
+          <td>2</td>
+          <td>ëª¨ë°ì¼</td>
+          <td>ChromeMobile</td>
+          <td><span class="badge yellow">ê°ë¨ íì</span></td>
+        </tr>
+        <tr>
+          <td>3/9</td>
+          <td>00:07</td>
+          <td>1</td>
+          <td>2</td>
+          <td>ëª¨ë°ì¼</td>
+          <td>Unknown</td>
+          <td><span class="badge yellow">ê°ë¨ íì</span></td>
+        </tr>
+        <tr>
+          <td>3/23</td>
+          <td>00:06</td>
+          <td>1</td>
+          <td>2</td>
+          <td>ëª¨ë°ì¼</td>
+          <td>SamsungInternet</td>
+          <td><span class="badge yellow">ê°ë¨ íì</span></td>
+        </tr>
+        <tr>
+          <td>3/25</td>
+          <td>00:01</td>
+          <td>0</td>
+          <td>1</td>
+          <td>íë¸ë¦¿</td>
+          <td>ChromeMobile</td>
+          <td><span class="badge red">ì¦ì ì´í</span></td>
+        </tr>
+        <tr>
+          <td>3/17</td>
+          <td>00:01</td>
+          <td>0</td>
+          <td>1</td>
+          <td>ëª¨ë°ì¼</td>
+          <td>MobileSafari</td>
+          <td><span class="badge red">ì¦ì ì´í</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="full-card" style="margin-top: 24px;">
+      <h3>ì¸ì íë ìì½</h3>
+      <p style="font-size: 14px; color: #8892b0; line-height: 1.8;">
+        15ê° ë¹í ì¸ì ë¶ì ê²°ê³¼, ëë¶ë¶ì ì¬ì©ìê° <strong style="color:#fff;">6~12ì´ ë´ì 1í í´ë¦­ í ì´í</strong>íë í¨í´ì ë³´ìëë¤. ì ê·¹ì ì¼ë¡ íìí ì¬ì©ì(01:21, 11íì´ì§)ë ë¨ 1ëªì´ìì¼ë©°, ì¦ì ì´í(1ì´, 0í´ë¦­) ì¸ìë ë¤ì ì¡´ì¬í©ëë¤. ì´ë ì´ë²¤í¸ íì´ì§ê° ì¬ì©ììê² <strong style="color:#ff6b35;">ë¤ì íëì ëªííê² ì ëíì§ ëª»íê³  ìì</strong>ì ìì¬í©ëë¤.
+      </p>
+    </div>
+  </div>
+
+  <!-- 6. ëìì¸ ì¸ì¬ì´í¸ & ê°ì  ì ì -->
+  <div class="section" style="border-bottom: none;">
+    <div class="section-label">Design Insights & Action Items</div>
+    <div class="section-title">ëìì¸ ê°ì  ì ì</div>
+
+    <ul class="action-list">
+      <li>
+        <div class="action-number">1</div>
+        <div class="action-content">
+          <h4>íì´ë¡ ìì­ì ê°ë ¥í CTA ë°°ì¹</h4>
+          <p>íì¬ ì¬ì©ìì 100%ê° íì´ì§ë¥¼ ëê¹ì§ ì¤í¬ë¡¤íì§ë§, í´ë¦­ ì íì´ ê±°ì ììµëë¤. ì¤í¬ë¡¤ ìì´ ë³´ì´ë ì²« íë©´(Above the Fold)ì "ì§ê¸ ì´ë²¤í¸ ì°¸ì¬íê¸°" ê°ì ëªíí CTA ë²í¼ì í¬ê² ë°°ì¹íì¸ì. ë²í¼ ììì ì£¸ë³ê³¼ ëë¹ëë ìì¼ë¡, ìµì 48px ëì´ë¥¼ íë³´í´ì£¼ì¸ì.</p>
+          <div class="impact">ìì í¨ê³¼: Quick Backì¨ ê°ì, í´ë¦­ ì íì¨ ì¦ê°</div>
+        </div>
+      </li>
+      <li>
+        <div class="action-number">2</div>
+        <div class="action-content">
+          <h4>LCP 6.1ì´ â 2.5ì´ ì´íë¡ ê°ì </h4>
+          <p>íì´ë¡ ì´ë¯¸ì§ ëë ì£¼ì ë¹ì£¼ì¼ ììì´ ë¡ë©ì 6ì´ ì´ì ê±¸ë¦¬ê³  ììµëë¤. ì´ë¯¸ì§ë¥¼ WebPë¡ ë³ííê³ , íì´ë¡ ì´ë¯¸ì§ì preloadë¥¼ ì ì©íì¸ì. Lazy loadingì ATF(Above the Fold) ë°ì ì´ë¯¸ì§ìë§ ì ì©í´ì¼ í©ëë¤. CLS 0.4 í´ê²°ì ìí´ ì´ë¯¸ì§/ìì ìì­ì ë°ëì width/height ëë aspect-ratioë¥¼ ì§ì íì¸ì.</p>
+          <div class="impact">ìì í¨ê³¼: ì´íë¥  ê°ì, SEO ì ì í¥ì, Core Web Vitals íµê³¼</div>
+        </div>
+      </li>
+      <li>
+        <div class="action-number">3</div>
+        <div class="action-content">
+          <h4>ì´ë²¤í¸ â ì±ì©ì ë³´ ì í ëì  ê°í</h4>
+          <p>ê°ì¥ íë°í ì¬ì©ìì ì¬ì ì´ ì´ë²¤í¸ â ë©ì¸ â ì±ì©ì ë³´ììµëë¤. ì´ë²¤í¸ íì´ì§ íë¨ì "ìë¥ ë! ì§ì­ë³ ìë° ë°ë¡ ì°¾ê¸°" ê°ì ì°ê³ ì¹ìì ì¶ê°íë©´, ë©ì¸ì ê±°ì¹ì§ ìê³ ë ë°ë¡ ì±ì©ì ë³´ë¡ ì ëí  ì ììµëë¤.</p>
+          <div class="impact">ìì í¨ê³¼: ì¸ìë¹ íì´ì§ ì ì¦ê°(íì¬ 2.14), ì±ì©ê³µê³  ì¡°í ì¦ê°</div>
+        </div>
+      </li>
+      <li>
+        <div class="action-number">4</div>
+        <div class="action-content">
+          <h4>ì¸ë¶ ì ì ì±ë íë</h4>
+          <p>íì¬ ì ìì 94.7%ê° ìë°ëª¬ ë´ë¶(m.albamon.com)ìëë¤. ë¤ì´ë² ë¸ë¡ê·¸ 1ê±´ ì¸ ì¸ë¶ ì ìì´ ì ë¬´í©ëë¤. ì¸ì¤íê·¸ë¨, ì¹´ì¹´ì¤í¡ ê³µì , ë¤ì´ë² ê°ì ê´ê³  ë± ì¸ë¶ ì±ë ë§ì¼íì ë³ííë©´ ëë¬ ë²ìë¥¼ í¬ê² ëë¦´ ì ììµëë¤.</p>
+          <div class="impact">ìì í¨ê³¼: ì ê· ì¬ì©ì ëë¬ ë²ì íë, ì´ë²¤í¸ ì¸ì§ë ìì¹</div>
+        </div>
+      </li>
+      <li>
+        <div class="action-number">5</div>
+        <div class="action-content">
+          <h4>ëª¨ë°ì¼ í°ì¹ íê² ë° ì¸í°ëì ìµì í</h4>
+          <p>ì¬ì©ìì 90% ì´ìì´ ëª¨ë°ì¼(iOS ì¤ì¬)ë¡ ì ìí©ëë¤. ëª¨ë  í°ì¹ íê²ì ìµì 44x44pxë¡ íë³´íê³ , ì¤í¬ë¡¤ ì¤ ëíëë Floating CTA ë²í¼ì ì¶ê°íë©´ ì´ë ìì¹ììë  ì íì´ ê°ë¥í©ëë¤. iOS Safariììì ë ëë§ íì¤í¸ë ë°ëì ìííì¸ì.</p>
+          <div class="impact">ìì í¨ê³¼: ëª¨ë°ì¼ ì íì¨ í¥ì, ì¸í°ëì íì§ ê°ì </div>
+        </div>
+      </li>
+      <li>
+        <div class="action-number">6</div>
+        <div class="action-content">
+          <h4>ì´ë²¤í¸ ì°¸ì¬/ê³µì  í¼ë ì¬ì¤ê³</h4>
+          <p>ê¹ëê¸°(Funnel) ë¶ììì "refer friends" ì íì¨ì´ 0%ìëë¤. ì´ë²¤í¸ ì°¸ì¬ â ì¹êµ¬ ê³µì ì íë¦ì´ ì¬ì©ììê² ë°ê²¬ëì§ ìê±°ë, ì°¸ì¬ íë¤ì´ ëë¬´ ëì ì ììµëë¤. ê³µì  ë²í¼ì ì¤í¬ë¡¤ ê³ ì (Sticky)ì¼ë¡ ë¸ì¶íê³ , "ì¹êµ¬ìê² ê³µì íë©´ OO íí" ê°ì ì¸ì¼í°ë¸ë¥¼ ìê°ì ì¼ë¡ ê°ì¡°íì¸ì.</p>
+          <div class="impact">ìì í¨ê³¼: ê³µì  ì íì¨ 0% â ëª©í 5% ì´ì</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>ìë°ëª¬ ìë¥ì´ë²¤í¸ UX ë¶ì ë¦¬í¬í¸ Â· Microsoft Clarity ë°ì´í° ê¸°ë° Â· 2026.03.26</p>
+</div>
+
+</body>
+</html>
